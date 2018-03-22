@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomEnumerator
+namespace CustomEnumeratorWithYield
 {
     class Garage : IEnumerable
     {
@@ -25,6 +25,32 @@ namespace CustomEnumerator
         {
             // return the array object's IEnumerator
             return carArray.GetEnumerator();
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            foreach (Car c in carArray)
+            {
+                yield return c;
+            }
+        }
+
+        public IEnumerable GerTheCars(bool ReturnReversed)
+        {
+            if (ReturnReversed)
+            {
+                for (int i = carArray.Length; i != 0; i--)
+                {
+                    yield return carArray[i - 1];
+                }
+            }
+            else
+            {
+                foreach (Car c in carArray)
+                {
+                    yield return c;
+                }
+            }
         }
     }
 }
